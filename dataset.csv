@@ -1,0 +1,784 @@
+query,label
+Google search history,search
+frozen bottle near me,search
+kaggle search query dataset,search
+green flags - SNL,search
+Sachin hook shot,search
+vassily ivanchuk,search
+red wedding reddit,search
+polymarket winds of winter,search
+grrm winds of winter,search
+jaime i dreamed of you,search
+bangda fish,search
+what do you think is the fate of Oathkeeper and Widow's wail,search
+magnus carlsen,search
+raymond ltd share price,search
+jim carrey,search
+striver,search
+remus lupin,search
+how to do a handstand,llm
+how to renew passport online India,search
+how to check pan status,search
+how to learn to swim,llm
+how to book tatkal ticket,search
+ai impact summit - wikipedia,search
+pasir ris,search
+sentosa,search
+iex share price,search
+infosys,search
+the council of elrond,search
+was robb king of the riverlands,search
+is efficiency the way to fairness,llm
+is gambling and betting ethical ,llm
+baelor breakspear robb stark,search
+lord of the rings,search
+apple tv,search
+one battle after another,search
+restaurants near me,search
+movies near me,search
+zoo near me,search
+netflix subscription cost,search
+how does netflix work,llm
+"Sea Cliff, New York",search
+beams,search
+Padma Lakshmi,search
+nationalum share price,search
+stcg exemption limit,search
+bloodraven reddit,search
+jan timman,search
+brigade road,search
+"bregagh road, ireland",search
+maratha empire,search
+what could maratha empire have done to increase their chances of winning against the British ? ,llm
+Washington's dream - SNL,search
+What year was George Washington born ?,search
+What is the year when Maratha empire came to an end ?,search
+Where is the closest restaurant to me ?,search
+Who is George RR Martin ?,search
+What is the share price of Nationalum ?,search
+ik,search
+Laxmi Gents Salon,search
+Linus Torvalds,search
+Who is Linus Torvalds,search
+Where was Linus Torvalds born ?,search
+Linus Torvalds birth place,search
+When was Linus Torvalds born,search
+Linus Torvalds birth year,search
+rujali kebab,search
+paneer tikka,search
+Elon Musk,search
+Who is Elon Musk,search
+Where was Elon Musk born,search
+Elon Musk birth place,search
+Elon Musk birth year,search
+When was Elon Musk born,search
+baelor the blessed,search
+tsukune near me,search
+kuuraku bandra menu,search
+kuuraku bandra,search
+japanese restaurants in mumbai,search
+chinese restaurants in mumbai,search
+indian restaurants in fukuoka,search
+mumbai sightseeing,search
+fukuoka sightseeing,search
+munich sightseeing,search
+things to do in pune,llm
+things to do in barcelona,llm
+Things to do in Goa this weekend,search
+things to do in mumbai in December 2026,search
+things to do near me right now,search
+things to do in Goa for adventure lovers,llm
+things to do in mumbai for old people,llm
+best activities for children in goa,llm
+Baga beach,search
+plan an 2-day itinerary for me in Fukuoka,llm
+places to visit around Fukuoka,search
+places for adventure around Fukuoka,llm
+global news,search
+what was the most important global news in the past week,llm
+most often occuring subject of global news,llm
+what are good places to visit around Fukuoka,search
+Fukuoka city,search
+urban dictionary,search
+meaning of vivid,search
+what is the meaning of unusual,search
+what part of speech is the word flexibility,search
+ind v aus match score,search
+ind v eng head to head score cricket,search
+italy football worldcup wins,search
+India national cricket team,search
+MMRDA,search
+parminder nagra,search
+bend it like beckham,search
+what movies should i watch right now ?,llm
+recommend some interesting movies to watch right now.,llm
+imdb movie list,search
+google pay,search
+cast of friends,search
+cast of it's a wonderful life,search
+it's a wonderful life,search
+"in the asoiaf books, who is stannis baratheon",search
+is stannis a good character,search
+how do you summarise the ethics of robert baratheon's actions in the war,llm
+was napoleon a moral man,llm
+indian civilization,search
+how advanced were ancient indians,llm
+Southampton vs Newcastle,search
+Evaluate the strengths and weaknesses of Southampton vs Newcastle,llm
+is tom bombadil more powerful than Gandalf,search
+museum timings,search
+hotel timings,search
+check out time,search
+checkout time,search
+small towns near me,search
+Tesla Pune,search
+Infosys Bangalore address,search
+SBI near me,search
+HDFC customer care number,search
+TCS share price today,search
+Reliance Industries annual report 2023 pdf,search
+McDonald's menu Mumbai,search
+Domino’s offers today,search
+Apple store BKC,search
+Flipkart customer support,search
+Amazon return policy India,search
+IRCTC login,search
+Passport Seva Kendra appointment,search
+PAN card status check,search
+Aadhaar update center near me,search
+Income tax e filing portal,search
+GST login,search
+UIDAI official website,search
+CBSE results 2026,search
+IPL schedule 2026,search
+Weather in Mumbai today,search
+Gold rate today Chennai,search
+Petrol price Delhi today,search
+Sensex live,search
+Nifty 50 today,search
+Bitcoin price now,search
+Ethereum price INR,search
+ICC rankings latest,search
+UPSC notification 2026,search
+SSC CGL apply online,search
+Nearest petrol pump,search
+Hospitals near me,search
+Pharmacies open now,search
+Restaurants near me,search
+Movie theaters near me,search
+PVR showtimes today,search
+BookMyShow login,search
+Zomato offers today,search
+Swiggy coupon code,search
+Ola customer care,search
+Uber office Bangalore,search
+Bangalore metro timings,search
+Mumbai local train timetable,search
+Delhi metro route map,search
+Indian Railways train status,search
+Flight status Indigo,search
+Air India baggage allowance,search
+Emirates check in online,search
+Taj Hotel Mumbai address,search
+IIT Bombay address,search
+NIT Trichy campus map,search
+AIIMS Delhi OPD timings,search
+Apollo hospital Chennai,search
+Fortis hospital Gurgaon,search
+Starbucks near me,search
+KFC menu price,search
+Subway outlets near me,search
+Pizza Hut delivery number,search
+Big Bazaar near me,search
+Decathlon store Bangalore,search
+IKEA Hyderabad,search
+D Mart timings,search
+Reliance Trends near me,search
+Myntra return policy,search
+Nykaa customer care,search
+Snapdeal login,search
+CRED app download,search
+PhonePe customer support,search
+Paytm wallet login,search
+Google Maps directions,search
+YouTube login,search
+Facebook login,search
+Instagram login,search
+Twitter login,search
+LinkedIn login,search
+Gmail login,search
+Outlook login,search
+Netflix login,search
+Amazon Prime login,search
+Hotstar login,search
+Spotify login,search
+Coursera login,search
+Udemy login,search
+Khan Academy website,search
+Stack Overflow login,search
+GitHub login,search
+GitLab login,search
+Docker Hub login,search
+AWS console login,search
+Azure portal login,search
+Google Cloud console,search
+ChatGPT login,search
+OpenAI pricing,search
+Claude AI login,search
+Gemini AI login,search
+NVIDIA stock price,search
+Apple stock price,search
+Microsoft stock price,search
+Tesla stock price,search
+Infosys stock price,search
+Wipro share price,search
+HCL share price,search
+ICICI Bank share price,search
+HDFC Bank share price,search
+Axis Bank share price,search
+SBI share price,search
+LIC share price,search
+Tata Motors share price,search
+Maruti Suzuki share price,search
+Mahindra share price,search
+Tata Power share price,search
+Adani Enterprises share price,search
+Bharti Airtel share price,search
+Vodafone Idea share price,search
+Jio customer care,search
+Airtel recharge plans,search
+Vodafone recharge plans,search
+BSNL broadband plans,search
+Jio fiber plans,search
+ACT broadband plans,search
+Sun direct recharge,search
+Tata Sky recharge,search
+Dish TV recharge,search
+LIC policy status,search
+EPFO login,search
+PF balance check,search
+PPF interest rate 2026,search
+Sukanya Samriddhi scheme details,search
+RBI repo rate today,search
+Budget 2026 highlights,search
+Election results India,search
+Lok Sabha election date,search
+State bank branch locator,search
+ICICI ATM near me,search
+HDFC IFSC code,search
+Axis Bank branch near me,search
+Post office near me,search
+Speed post tracking,search
+DTDC tracking,search
+Blue Dart tracking,search
+FedEx tracking,search
+DHL tracking,search
+India Post tracking,search
+Railway enquiry number,search
+Traffic update Mumbai,search
+Road conditions Bangalore,search
+Chennai airport departures,search
+Delhi airport arrivals,search
+Goa tourist map,search
+Manali weather today,search
+Shimla snowfall update,search
+Ooty temperature now,search
+Jaipur tourist places,search
+Agra Taj Mahal timings,search
+Red Fort Delhi timings,search
+Qutub Minar entry fee,search
+Statue of Unity ticket booking,search
+Charminar timings,search
+Meenakshi temple Madurai timings,search
+Tirupati darshan booking,search
+Vaishno Devi yatra registration,search
+Kedarnath helicopter booking,search
+Amarnath yatra dates,search
+RTO office near me,search
+Driving license status,search
+Vehicle registration details,search
+Parivahan portal,search
+FASTag recharge,search
+NPCI website,search
+DigiLocker login,search
+CoWIN certificate download,search
+Railway ticket cancellation rules,search
+Indian passport renewal online,search
+eShram card registration,search
+PM Kisan status,search
+Mudra loan apply,search
+Startup India registration,search
+MSME registration online,search
+NSDL PAN services,search
+MCA company search,search
+GST number search,search
+Trademark search India,search
+Patent search India,search
+Supreme Court judgments,search
+High Court case status,search
+Consumer court complaint online,search
+RTI online application,search
+Income tax refund status,search
+CIBIL score check,search
+Experian credit report,search
+Bank holiday list 2026,search
+School holidays 2026,search
+College admission dates 2026,search
+JEE Main results,search
+NEET result 2026,search
+CAT exam date,search
+GATE exam schedule,search
+IELTS test dates,search
+TOEFL registration,search
+GRE registration,search
+SAT exam dates,search
+University of Delhi admission,search
+Mumbai University results,search
+Anna University results,search
+VTU results,search
+IGNOU admission status,search
+Amity University address,search
+Manipal University fees,search
+SRM University campus,search
+Lenskart near me,search
+Titan showroom near me,search
+Croma store near me,search
+Vijay Sales near me,search
+HP service center near me,search
+Dell service center near me,search
+Lenovo service center near me,search
+Samsung service center near me,search
+OnePlus service center near me,search
+Xiaomi service center near me,search
+Boat customer care,search
+Noise service center,search
+Realme service center,search
+Oppo service center,search
+Vivo service center,search
+ICICI credit card login,search
+HDFC net banking login,search
+SBI net banking login,search
+Kotak Mahindra net banking,search
+IndusInd Bank login,search
+Yes Bank net banking,search
+Bandhan Bank branch near me,search
+UCO Bank branch,search
+Canara Bank branch,search
+Union Bank branch,search
+Punjab National Bank branch,search
+Bank of Baroda branch,search
+IDFC First Bank branch,search
+RBL Bank branch,search
+Federal Bank branch,search
+Kerala tourism official website,search
+Rajasthan tourism packages,search
+Himachal tourism contact,search
+Goa tourism events,search
+Sikkim tourism permit,search
+Ladakh weather today,search
+Leh airport status,search
+Andaman ferry booking,search
+Lakshadweep travel permit,search
+Bhutan visa requirements,search
+Thailand visa for Indians,search
+Singapore visa apply online,search
+Dubai visa status,search
+US visa appointment India,search
+UK visa processing time,search
+Canada PR application status,search
+Australia visa subclass 189,search
+Schengen visa requirements,search
+Japan visa India,search
+South Korea visa apply,search
+Qatar Airways booking,search
+Indigo web check in,search
+SpiceJet check in,search
+Vistara flight status,search
+AirAsia baggage rules,search
+Railway platform number,search
+Bangalore traffic police,search
+Mumbai police station near me,search
+Fire station near me,search
+Electricity bill payment,search
+Water bill payment online,search
+Property tax payment,search
+Municipal corporation website,search
+BBMP property tax,search
+MCGM property tax,search
+BESCOM bill payment,search
+TANGEDCO bill payment,search
+Torrent Power bill payment,search
+Airtel complaint number,search
+Jio complaint number,search
+Vodafone complaint number,search
+ICICI loan interest rate,search
+HDFC home loan rate,search
+SBI home loan rate,search
+Gold loan interest rate,search
+Personal loan EMI calculator,search
+Home loan EMI calculator,search
+SIP calculator,search
+Income tax calculator India,search
+GST calculator India,search
+Currency converter USD to INR,search
+USD to INR rate today,search
+Euro to INR rate,search
+Pound to INR rate,search
+Sensex historical data,search
+Nifty historical data,search
+Company annual filing MCA,search
+Startup funding news today,search
+Latest tech news,search
+Breaking news India today,search
+Teach me Python step by step,llm
+Teach me statistics basics,llm
+Teach me system design,llm
+Explain recursion like I’m 10,llm
+Teach me calculus basics,llm
+Explain probability simply,llm
+Teach me SQL from scratch,llm
+Teach me Git basics,llm
+Teach me Docker basics,llm
+Explain Kubernetes to beginner,llm
+Why is my Python code throwing TypeError?,llm
+Debug this JavaScript function,llm
+Fix memory leak in Node app,llm
+Why is my SQL query slow?,llm
+How to handle race conditions?,llm
+How to prevent XSS attacks?,llm
+Explain CSRF,llm
+How to secure REST API,llm
+Why is my React component re rendering?,llm
+How to optimize backend performance,llm
+Convert this paragraph to bullet points,llm
+Simplify this technical explanation,llm
+Translate this to formal English,llm
+Paraphrase without plagiarism,llm
+Make this shorter,llm
+Expand this idea,llm
+Turn notes into structured article,llm
+Create FAQ from text,llm
+Convert blog to Twitter thread,llm
+Turn story into screenplay,llm
+Create budget plan template,llm
+Make content calendar,llm
+Create Notion template ideas,llm
+Plan 7 day productivity sprint,llm
+Write reflection journal prompts,llm
+Create weekly review template,llm
+Create goal setting framework,llm
+Make mind map for AI learning,llm
+Generate brainstorming questions,llm
+Create daily routine plan,llm
+Should I pursue MBA or startup?,llm
+Is computer science a good major?,llm
+Should I learn frontend or backend first?,llm
+Is freelancing worth it?,llm
+Should I switch from mechanical to software?,llm
+How to choose tech stack,llm
+How to choose database,llm
+How to price SaaS product,llm
+How to raise seed funding,llm
+When to pivot startup,llm
+How do large language models work?,llm
+What is fine tuning?,llm
+What is prompt engineering?,llm
+Explain embeddings,llm
+What is RAG architecture?,llm
+How to build chatbot,llm
+Compare GPT vs BERT,llm
+Explain hallucination in LLMs,llm
+How to evaluate LLM performance,llm
+What is reinforcement learning from human feedback?,llm
+Invent a new social media app idea,llm
+Create fictional country,llm
+Design a futuristic city,llm
+Create superhero backstory,llm
+Brainstorm SaaS ideas,llm
+Create AI startup idea,llm
+Write sci fi short plot,llm
+Invent board game concept,llm
+Create fantasy world rules,llm
+Write alternate history scenario,llm
+Explain Monty Hall problem,llm
+Why is sky blue scientifically?,llm
+What is game theory?,llm
+Prisoner’s dilemma explained,llm
+Nash equilibrium explained,llm
+Explain paradox examples,llm
+What is Gödel’s incompleteness theorem?,llm
+Explain Turing machine,llm
+What is NP complete?,llm
+P vs NP explained,llm
+Should startups focus on profitability early?,llm
+Is remote work sustainable long term?,llm
+Analyze ethical dilemma scenario,llm
+How to decide between two job offers,llm
+Evaluate business model idea,llm
+How to validate startup idea,llm
+How to prioritize tasks effectively,llm
+What makes a good leader?,llm
+Traits of high performers,llm
+How to build discipline,llm
+Build simple blockchain in Python,llm
+Implement neural network from scratch,llm
+Build REST API with FastAPI,llm
+Create CRUD app in Django,llm
+Create login system in Node.js,llm
+Build chat app using WebSockets,llm
+Implement OAuth flow,llm
+JWT authentication example,llm
+Implement caching with Redis,llm
+Use Celery for background tasks,llm
+Create pagination in SQL,llm
+Optimize slow SQL query,llm
+Design scalable database schema,llm
+Implement rate limiting middleware,llm
+Write unit tests in pytest,llm
+Mock API in Jest,llm
+Integrate Stripe payments,llm
+Deploy app on AWS,llm
+Dockerize React app,llm
+Kubernetes deployment example,llm
+Create SWOT analysis for startup,llm
+Make comparison table for AWS vs Azure,llm
+Generate weekly workout plan,llm
+Create meal plan for weight loss,llm
+Build 30 day coding roadmap,llm
+Create project timeline template,llm
+Make checklist for product launch,llm
+Generate OKRs for startup,llm
+Create learning roadmap for AI,llm
+Write JSON schema example,llm
+Generate SQL table schema,llm
+Create API documentation template,llm
+Generate Kubernetes YAML example,llm
+Create Dockerfile example,llm
+Write Terraform example,llm
+Create ER diagram explanation,llm
+Write regex to validate email,llm
+Write bash script example,llm
+Create GitHub Actions workflow,llm
+Create CI pipeline example,llm
+Explain relativity simply,llm
+How black holes form,llm
+What is dark matter?,llm
+How vaccines work,llm
+What is CRISPR?,llm
+Explain entropy,llm
+How nuclear fusion works,llm
+What is Higgs boson?,llm
+How does photosynthesis work?,llm
+Why sky is blue?,llm
+How to start a blog,llm
+How to build personal brand,llm
+How to start investing,llm
+How to save money effectively,llm
+How to build credit score,llm
+How to meditate,llm
+How to improve communication skills,llm
+How to speak confidently,llm
+How to wake up early,llm
+How to build habits,llm
+How to stop overthinking,llm
+How to learn public speaking,llm
+How to manage stress,llm
+How to plan career path,llm
+How to learn math from scratch,llm
+Study plan for UPSC,llm
+Study plan for JEE,llm
+Learn Python in 3 months plan,llm
+How to build reading habit,llm
+Memory improvement techniques,llm
+How to learn faster,llm
+Cornell note taking method,llm
+How to avoid burnout,llm
+Growth mindset explained,llm
+What is free will?,llm
+Meaning of life discussion,llm
+Determinism vs libertarianism,llm
+What is consciousness?,llm
+Explain stoicism,llm
+Compare stoicism and Buddhism,llm
+What is existentialism?,llm
+What is nihilism?,llm
+Is morality objective?,llm
+What is utilitarianism?,llm
+Common HR interview questions,llm
+How to prepare for coding interview,llm
+Behavioral interview tips,llm
+STAR method explained,llm
+How to negotiate salary,llm
+Resume tips for freshers,llm
+Portfolio tips for developers,llm
+How to switch careers to tech,llm
+Freelancing vs full time,llm
+How to ask for promotion,llm
+How to prepare for system design interview,llm
+Data scientist interview questions,llm
+DevOps interview questions,llm
+Frontend interview prep,llm
+Backend interview prep,llm
+Explain linear regression,llm
+Logistic regression explained,llm
+What is gradient descent?,llm
+Bayes theorem explained,llm
+Standard deviation meaning,llm
+Correlation vs causation,llm
+What is p value?,llm
+Explain hypothesis testing,llm
+What is neural network?,llm
+Backpropagation explained,llm
+What is transformer model?,llm
+How does attention mechanism work?,llm
+Explain GPT architecture,llm
+What is tokenization?,llm
+Difference between supervised and unsupervised learning,llm
+K means clustering explanation,llm
+Random forest explained,llm
+SVM explained,llm
+Bias variance tradeoff,llm
+ROC curve explanation,llm
+Compare capitalism and socialism,llm
+Pros and cons of remote work,llm
+Is AI dangerous?,llm
+Ethical issues in AI,llm
+Analyze this argument for fallacies,llm
+Explain confirmation bias,llm
+How to think critically,llm
+Evaluate startup idea,llm
+Compare SQL vs NoSQL,llm
+Microservices vs monolith,llm
+Should I learn Python or Java?,llm
+Career advice for data science,llm
+Best way to learn coding,llm
+How to stay productive,llm
+Time management strategies,llm
+How to overcome procrastination,llm
+Compare MBA vs MS,llm
+Explain inflation,llm
+What causes recession?,llm
+How interest rates affect economy,llm
+Write a short story about time travel,llm
+Draft a resignation email,llm
+Write a professional cover letter,llm
+Improve this paragraph for clarity,llm
+Summarize this article,llm
+Rewrite this text formally,llm
+Make this email more polite,llm
+Write LinkedIn bio for software engineer,llm
+Generate business name ideas,llm
+Create slogan for eco brand,llm
+Write poem about artificial intelligence,llm
+Create YouTube video script,llm
+Draft apology message,llm
+Write product description,llm
+Create startup pitch deck outline,llm
+Write cold outreach email,llm
+Create marketing plan,llm
+Brainstorm app ideas,llm
+Generate Instagram captions,llm
+Create newsletter outline,llm
+Design URL shortener,llm
+Design chat application,llm
+Design scalable notification system,llm
+How to design Instagram backend,llm
+System design for ride sharing app,llm
+How to handle high traffic system,llm
+Database sharding explanation,llm
+What is load balancing?,llm
+Design rate limiter,llm
+Design recommendation system,llm
+Binary search implementation,llm
+Merge sort explanation,llm
+Quick sort code,llm
+What is a linked list?,llm
+Implement stack using array,llm
+Queue vs stack difference,llm
+What is a hash map?,llm
+Depth first search explanation,llm
+Breadth first search explanation,llm
+Dijkstra algorithm explained,llm
+What is dynamic programming?,llm
+Fibonacci using DP,llm
+Longest common subsequence explanation,llm
+What is time complexity?,llm
+How to analyze algorithm complexity,llm
+Implement LRU cache,llm
+What is a binary tree?,llm
+AVL tree explanation,llm
+What is a trie?,llm
+Graph representation methods,llm
+What is closure in JavaScript?,llm
+"Difference between var, let, const",llm
+How to create a promise,llm
+Async/await example,llm
+JavaScript debounce function,llm
+Throttle vs debounce,llm
+How to fetch API in JS,llm
+What is event bubbling?,llm
+Explain prototype in JS,llm
+How to manipulate DOM,llm
+Arrow function vs regular function,llm
+What is hoisting?,llm
+JavaScript map vs forEach,llm
+How to deep clone object,llm
+What is React?,llm
+React useEffect example,llm
+React useState example,llm
+What is Redux?,llm
+Next.js vs React,llm
+How to build REST API with Node.js,llm
+How to reverse a string in Python,llm
+Python code to check palindrome,llm
+How to merge two dictionaries in Python,llm
+Python program for factorial using recursion,llm
+Difference between list and tuple,llm
+How to read a CSV file in Python,llm
+How to write JSON to file in Python,llm
+Explain Python decorators,llm
+How to use lambda functions,llm
+Python code to remove duplicates from list,llm
+How to handle exceptions in Python,llm
+Python class example,llm
+What is init in Python?,llm
+How to install packages with pip,llm
+Python virtual environment setup,llm
+Async vs threading in Python,llm
+Python code to sort dictionary by value,llm
+How to connect to MySQL in Python,llm
+What is pandas used for?,llm
+Python code for web scraping,llm
+Explain quantum computing in simple terms,llm
+What is blockchain and how does it work?,llm
+Difference between AI and machine learning,llm
+What is deep learning?,llm
+Explain overfitting in machine learning,llm
+What is reinforcement learning?,llm
+Explain REST vs GraphQL,llm
+What is microservices architecture?,llm
+How does the internet work?,llm
+Explain DNS in simple words,llm
+What is edge computing?,llm
+Explain zero trust security,llm
+What is DevOps?,llm
+What is CI/CD?,llm
+Explain containerization,llm
+What is Kubernetes?,llm
+Difference between TCP and UDP,llm
+What is event-driven architecture?,llm
+Explain data normalization,llm
+What is ACID in databases?,llm
+CAP theorem explained,llm
+Explain big O notation,llm
+What is memoization?,llm
+Explain recursion with example,llm
+What is polymorphism in OOP?,llm
+Difference between abstract class and interface,llm
+Explain SOLID principles,llm
+What is dependency injection?,llm
+What is functional programming?,llm
+What is immutability?,llm
+etymology of the word hearth,search
+where did the word ravenous come from,search
+analyze my resume and suggest improvements,llm
