@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "Search_v_LLM",
+  "version": "1.0",
+  "description": "Routes queries to Search or LLM intelligently.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "permissions": ["activeTab", "storage"],
+  "host_permissions": ["http://localhost:8000/*"]
+}
