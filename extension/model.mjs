@@ -1,26 +1,29 @@
 import { STOPWORDS } from "./stopwords.js";
+import { fileURLToPath } from "url";
+
+const { readFile } = await import("fs/promises");
 
 let MODEL = null;
 
 async function loadModel() {
-  console.log('LOADING MODEL');
   if (MODEL) return MODEL;
-  console.log('MODEL NOT FOUND');
 
   const url = new URL("./model.json", import.meta.url);
-  console.log('URL', url);
 
   // Detect Node vs Browser
   if (url.protocol === "file:") {
       // Node.js path
-      console.log('NODE', MODEL);
-      const { readFile } = await import("fs/promises");
-      console.log('READING FILE', url);
-      const data = await readFile(url, "utf-8");
-      MODEL = JSON.parse(data);
+      const filePath = fileURLToPath(url);
+      try {
+        const data = await readFile(filePath, "utf-8");
+        MODEL = JSON.parse(data);
+      } catch (error) {
+        console.error('Error reading model file:', error);
+        throw error;
+      }
   } else {
       // Browser / Extension path
-      console.log('BROWSER', MODEL);
+      console.log('BROWSER environment detected');
       const response = await fetch(url);
       MODEL = await response.json();
   }
@@ -28,7 +31,13 @@ async function loadModel() {
   return MODEL;
 }
 
-loadModel();
+// Load model and then test classification
+(async () => {
+  await loadModel();
+  console.log('Model loaded, testing classification...');
+  const result = classify("jaime tyrion reddit");
+  console.log('Classification result:', result);
+})();
 
 function tokenize(text) {
   return text
@@ -110,5 +119,3 @@ function classify(query) {
       confidence: Math.max(probLLM, 1 - probLLM)
   };
 }
-
-classify("jaime tyrion reddit");
