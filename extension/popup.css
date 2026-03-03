@@ -20,3 +20,39 @@ button {
   margin-top: 10px;
   font-size: 12px;
 }
+
+body {
+  margin: 0;
+  padding: 20px;
+  width: 400px;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f7f7f8;
+}
+
+.container {
+  width: 100%;
+}
+
+#query {
+  width: 100%;
+  min-height: 44px;
+  max-height: 200px;
+  resize: none;
+  overflow: hidden;
+  padding: 12px 14px;
+  font-size: 15px;
+  line-height: 1.4;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  outline: none;
+  box-sizing: border-box;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+#query:focus {
+  border-color: #4c8bf5;
+  box-shadow: 0 0 0 3px rgba(76, 139, 245, 0.15);
+}

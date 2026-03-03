@@ -31,14 +31,6 @@ async function loadModel() {
   return MODEL;
 }
 
-// Load model and then test classification
-(async () => {
-  await loadModel();
-  console.log('Model loaded, testing classification...');
-  const result = classify("jaime tyrion reddit");
-  console.log('Classification result:', result);
-})();
-
 function tokenize(text) {
   return text
       .toLowerCase()
@@ -119,3 +111,11 @@ function classify(query) {
       confidence: Math.max(probLLM, 1 - probLLM)
   };
 }
+
+// Load model and then test classification
+(async () => {
+  await loadModel();
+  console.log('Model loaded, testing classification...');
+  const result = classify("is this question more suited for llm or search ?");
+  console.log('Classification result:', result);
+})();
