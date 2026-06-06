@@ -32,11 +32,10 @@ async function loadModel() {
 }
 
 function tokenize(text) {
-  return text
-      .toLowerCase()
-      .replace(/[^\w\s]/g, "")
-      .split(/\s+/)
-      .filter(word => word.length > 0 && !STOPWORDS.has(word));
+  // Matches sklearn token_pattern
+  const tokens = text.toLowerCase().match(/\b\w\w+\b/g) || [];
+
+  return tokens.filter(t => !MODEL.stopwords.includes(t));
 }
 
 function generateNgrams(tokens) {
@@ -92,30 +91,80 @@ function predictProbability(features) {
   return sigmoid(score);
 }
 
-function classify(query) {
+function predict(query) {
 
   const tokens = tokenize(query);
-
   const ngrams = generateNgrams(tokens);
 
-  const tf = computeTF(ngrams, MODEL.idf.length);
+  const termCounts = {};
 
-  let tfidf = applyTFIDF(tf);
+  for (const term of ngrams) {
+      const idx = MODEL.vocab[term];
+      if (idx !== undefined) {
+          termCounts[idx] = (termCounts[idx] || 0) + 1;
+      }
+  }
 
-  tfidf = normalize(tfidf);
+  // TF-IDF + norm
+  let norm = 0;
+  const values = [];
 
-  const probLLM = predictProbability(tfidf);
+  for (const idx in termCounts) {
+      const val = termCounts[idx] * MODEL.idf[idx];
+      values.push([Number(idx), val]);
+      norm += val * val;
+  }
+
+  norm = Math.sqrt(norm) || 1;
+
+  // Logistic regression
+  let score = MODEL.bias;
+
+  for (const [idx, val] of values) {
+      score += (val / norm) * MODEL.weights[idx];
+  }
+
+  const probLLM = 1 / (1 + Math.exp(-score));
+
+  return probLLM;
+}
+
+const THRESHOLD = 0.65;
+
+function classify(query) {
+  const probLLM = predict(query);
 
   return {
-      route: probLLM > 0.5 ? "llm" : "search",
-      confidence: Math.max(probLLM, 1 - probLLM)
+      route: probLLM > THRESHOLD ? "llm" : "search",
+      confidence: Math.max(probLLM, 1 - probLLM),
+      probability: probLLM
   };
 }
+
+// function classify(query) {
+
+//   const tokens = tokenize(query);
+
+//   const ngrams = generateNgrams(tokens);
+
+//   const tf = computeTF(ngrams, MODEL.idf.length);
+
+//   let tfidf = applyTFIDF(tf);
+
+//   tfidf = normalize(tfidf);
+
+//   const probLLM = predictProbability(tfidf);
+
+//   return {
+//       route: probLLM > 0.5 ? "llm" : "search",
+//       confidence: Math.max(probLLM, 1 - probLLM)
+//   };
+// }
 
 // Load model and then test classification
 (async () => {
   await loadModel();
   console.log('Model loaded, testing classification...');
-  const result = classify("is this question more suited for llm or search ?");
+  const result = classify("who let the dogs out");
   console.log('Classification result:', result);
 })();
