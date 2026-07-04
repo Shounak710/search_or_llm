@@ -17,6 +17,10 @@ class ClassifyResponse(BaseModel):
     source: str
     confidence: float | None = None
     reason: str | None = None
+    redirect_url: str | None = None
+    stackoverflow_title: str | None = None
+    stackoverflow_score: int | None = None
+    stackoverflow_accepted: bool | None = None
 
 
 class FeedbackRequest(BaseModel):
@@ -52,6 +56,10 @@ def classify_query(body: ClassifyRequest):
         source=result["source"],
         confidence=result.get("confidence"),
         reason=result.get("reason"),
+        redirect_url=result.get("redirect_url"),
+        stackoverflow_title=result.get("stackoverflow_title"),
+        stackoverflow_score=result.get("stackoverflow_score"),
+        stackoverflow_accepted=result.get("stackoverflow_accepted"),
     )
 
 

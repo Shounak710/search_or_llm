@@ -93,7 +93,11 @@ function renderClassification(result) {
       : "Matched by heuristic rules";
   const reasonText = result.reason ? `Reason: ${result.reason}` : "";
   const sourceText = `Source: ${result.source}`;
-  resultMeta.textContent = [confidenceText, reasonText, sourceText]
+  const stackOverflowText =
+    result.redirect_url && result.stackoverflow_title
+      ? `Stack Overflow: ${result.stackoverflow_title}`
+      : "";
+  resultMeta.textContent = [confidenceText, reasonText, sourceText, stackOverflowText]
     .filter(Boolean)
     .join(" · ");
 
@@ -129,7 +133,7 @@ async function openRoute(route) {
   const query = currentClassification.query;
   const url =
     route === "search"
-      ? getSearchUrl(query, settings)
+      ? currentClassification.redirect_url || getSearchUrl(query, settings)
       : getLlmUrl(query, settings);
 
   const session = {
@@ -178,7 +182,9 @@ async function openRoute(route) {
       }
 
       setStatus(
-        `Opened search. We'll ask for feedback in ${settings.feedbackDelayMinutes} min.`,
+        currentClassification.redirect_url
+          ? `Opened Stack Overflow answer. Feedback in ${settings.feedbackDelayMinutes} min.`
+          : `Opened search. We'll ask for feedback in ${settings.feedbackDelayMinutes} min.`,
         "success"
       );
     }

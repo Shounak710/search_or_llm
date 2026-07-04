@@ -25,6 +25,14 @@ def log_classification(query: str, result: dict) -> None:
         entry["confidence"] = result["confidence"]
     if "reason" in result:
         entry["reason"] = result["reason"]
+    if "redirect_url" in result:
+        entry["redirect_url"] = result["redirect_url"]
+    if "stackoverflow_title" in result:
+        entry["stackoverflow_title"] = result["stackoverflow_title"]
+    if "stackoverflow_score" in result:
+        entry["stackoverflow_score"] = result["stackoverflow_score"]
+    if "stackoverflow_accepted" in result:
+        entry["stackoverflow_accepted"] = result["stackoverflow_accepted"]
 
     _append_jsonl(CLASSIFICATION_LOG_PATH, entry)
 
