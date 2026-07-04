@@ -104,6 +104,23 @@ function renderClassification(result) {
   openLlmBtn.classList.toggle("recommended", result.route === "llm");
 }
 
+async function copyToClipboard(text) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "absolute";
+  textarea.style.left = "-9999px";
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textarea);
+}
+
 async function openRoute(route) {
   if (!currentClassification) {
     return;
@@ -124,6 +141,15 @@ async function openRoute(route) {
     classifiedAt: currentClassification.classifiedAt,
   };
 
+  if (route === "llm") {
+    try {
+      await copyToClipboard(query);
+    } catch (error) {
+      setStatus("Could not copy query to clipboard.", "error");
+      return;
+    }
+  }
+
   window.open(url, "_blank", "noopener");
 
   chrome.runtime.sendMessage(
@@ -135,14 +161,24 @@ async function openRoute(route) {
     (response) => {
       if (chrome.runtime.lastError || !response?.ok) {
         setStatus(
-          "Opened, but feedback reminder could not be scheduled.",
+          route === "llm"
+            ? "Copied to clipboard, but feedback reminder could not be scheduled."
+            : "Opened, but feedback reminder could not be scheduled.",
           "error"
         );
         return;
       }
 
+      if (route === "llm") {
+        setStatus(
+          `Copied to clipboard — paste with ⌘V / Ctrl+V. Feedback in ${settings.feedbackDelayMinutes} min.`,
+          "success"
+        );
+        return;
+      }
+
       setStatus(
-        `Opened ${route}. We'll ask for feedback in ${settings.feedbackDelayMinutes} min.`,
+        `Opened search. We'll ask for feedback in ${settings.feedbackDelayMinutes} min.`,
         "success"
       );
     }

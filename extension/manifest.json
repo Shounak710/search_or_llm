@@ -3,21 +3,26 @@
   "name": "Search v LLM",
   "version": "1.0.0",
   "description": "Routes queries to search or an LLM based on intelligent classification.",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "icon.png",
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    },
     "default_title": "Search v LLM"
   },
   "background": {
-    "service_worker": "background.js",
-    "type": "module"
+    "service_worker": "background.js"
   },
-  "permissions": ["storage", "alarms", "notifications"],
+  "permissions": ["storage", "alarms", "notifications", "clipboardWrite"],
   "host_permissions": [
     "http://127.0.0.1:5000/*",
     "http://localhost:5000/*"
-  ],
-  "icons": {
-    "128": "icon.png"
-  }
+  ]
 }
