@@ -1,12 +1,23 @@
 {
   "manifest_version": 3,
-  "name": "Search_v_LLM",
-  "version": "1.0",
-  "description": "Routes queries to Search or LLM intelligently.",
+  "name": "Search v LLM",
+  "version": "1.0.0",
+  "description": "Routes queries to search or an LLM based on intelligent classification.",
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "icon.png"
+    "default_icon": "icon.png",
+    "default_title": "Search v LLM"
   },
-  "permissions": ["activeTab", "storage"],
-  "host_permissions": ["http://localhost:8000/*"]
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": ["storage", "alarms", "notifications"],
+  "host_permissions": [
+    "http://127.0.0.1:5000/*",
+    "http://localhost:5000/*"
+  ],
+  "icons": {
+    "128": "icon.png"
+  }
 }

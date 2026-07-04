@@ -1,55 +1,57 @@
 import re
 
+# LLM intent — checked first so broad search patterns cannot override them.
+_LLM_CREATION = re.compile(
+    r"\b(write|create|design|generate|build|draft|implement|compose|make)\b"
+)
+_LLM_REASONING = re.compile(
+    r"\b("
+    r"why|how does|how do|explain|compare|pros and cons|should i|"
+    r"teach me|debug|fix|recommend|summarize|evaluate|plan an|itinerary|"
+    r"explained"
+    r")\b"
+)
+
+# High-confidence search intent.
+_NAVIGATION = re.compile(
+    r"\b(near me|address|location|directions|closest|google maps?)\b"
+)
+_FACTUAL_LOOKUP = re.compile(
+    r"\b("
+    r"share price|stock price|weather in|weather today|temperature in|"
+    r"petrol price|diesel price|bitcoin price|ethereum price|"
+    r"what time is|current time|today'?s date|population of|"
+    r"distance from|distance to|"
+    r"news today|latest news|breaking news"
+    r")\b"
+)
+
+_LLM_PREFIXES = re.compile(
+    r"^(explain|teach|debug|fix|write|create|design|build|implement|recommend|summarize|evaluate)\b"
+)
+
 
 def apply_heuristics(query: str):
     q = query.lower().strip()
+    if not q:
+        return None
+
     words = q.split()
 
-    # ---------------------------
-    # 1. NAVIGATIONAL / LOCAL → SEARCH
-    # ---------------------------
-    if re.search(r"\b(near me|address|location|directions|map|closest)\b", q):
-        return {"route": "search", "source": "heuristic", "reason": "navigation"}
-
-    # ---------------------------
-    # 2. FACTUAL / LOOKUP → SEARCH
-    # ---------------------------
-    factual_patterns = [
-        r"\b(price|cost|weather|temperature|time|date|population|distance)\b",
-        r"\b(rate|score|result|news|update)\b",
-    ]
-
-    if any(re.search(p, q) for p in factual_patterns):
-        return {"route": "search", "source": "heuristic", "reason": "factual_lookup"}
-
-    # ---------------------------
-    # 3. VERY SHORT QUERY → SEARCH
-    # ---------------------------
-    if len(words) <= 2:
-        return {"route": "search", "source": "heuristic", "reason": "short_query"}
-
-    # ---------------------------
-    # 4. GENERATIVE / CREATION → LLM
-    # ---------------------------
-    generative_patterns = [r"\b(write|create|design|generate|build|draft)\b"]
-
-    if any(re.search(p, q) for p in generative_patterns):
+    if _LLM_CREATION.search(q):
         return {"route": "llm", "source": "heuristic", "reason": "creation"}
 
-    # ---------------------------
-    # 5. EXPLANATION / REASONING → LLM
-    # ---------------------------
-    reasoning_patterns = [
-        r"\b(why|how does|how do|explain|compare|pros and cons|should i)\b"
-    ]
-
-    if any(re.search(p, q) for p in reasoning_patterns):
+    if _LLM_REASONING.search(q):
         return {"route": "llm", "source": "heuristic", "reason": "reasoning"}
 
-    # ---------------------------
-    # 6. EXACT ERROR (still useful globally)
-    # ---------------------------
-    if re.search(r"\b(error|exception|failed|not found)\b", q):
-        return {"route": "search", "source": "heuristic", "reason": "known_issue"}
+    if _NAVIGATION.search(q):
+        return {"route": "search", "source": "heuristic", "reason": "navigation"}
+
+    if _FACTUAL_LOOKUP.search(q):
+        return {"route": "search", "source": "heuristic", "reason": "factual_lookup"}
+
+    # Single-token lookups (e.g. "infosys", "sentosa") — skip LLM-style prefixes.
+    if len(words) == 1 and not _LLM_PREFIXES.search(q):
+        return {"route": "search", "source": "heuristic", "reason": "short_query"}
 
     return None

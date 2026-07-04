@@ -1,48 +1,131 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <link rel="stylesheet" href="popup.css">
-</head>
-<body>
-  <div class="container">
-    <h3>Search v LLM</h3>
-    <textarea id="query" rows="1" placeholder="Ask anything..."></textarea>
-    <div class="settings">
-      <div class="setting-group">
-        <label for="browser-select">Default search engine:</label>
-        <select id="browser-select">
-          <option value="google">Google</option>
-          <option value="duckduckgo">DuckDuckGo</option>
-          <option value="bing">Bing</option>
-          <option value="custom">Custom…</option>
-        </select>
-        <input
-          id="browser-custom"
-          type="text"
-          placeholder="Custom search URL prefix, e.g. https://example.com/search?q="
-          style="display:none;"
-        />
-      </div>
-      <div class="setting-group">
-        <label for="llm-select">Default LLM:</label>
-        <select id="llm-select">
-          <option value="openai">ChatGPT (OpenAI)</option>
-          <option value="claude">Claude</option>
-          <option value="localhost">Localhost</option>
-          <option value="custom">Custom…</option>
-        </select>
-        <input
-          id="llm-custom"
-          type="text"
-          placeholder="Custom LLM URL prefix, e.g. https://your-llm-page.com?q="
-          style="display:none;"
-        />
-      </div>
-    </div>
-    <button id="submit">Route</button>
-    <div id="result"></div>
-  </div>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search v LLM</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <div class="brand">
+          <span class="brand-icon">⇄</span>
+          <div>
+            <h1>Search v LLM</h1>
+            <p class="subtitle">Route your query the smart way</p>
+          </div>
+        </div>
+      </header>
 
-  <script type="module" src="popup.js"></script>
-</body>
+      <main>
+        <section class="card query-card">
+          <label for="query" class="field-label">Your query</label>
+          <textarea
+            id="query"
+            rows="2"
+            placeholder="Ask anything..."
+            spellcheck="true"
+          ></textarea>
+          <button id="classify-btn" class="btn btn-primary" type="button">
+            Classify query
+          </button>
+          <p id="status" class="status" aria-live="polite"></p>
+        </section>
+
+        <section id="result-section" class="card result-card hidden">
+          <div class="result-header">
+            <span class="field-label">Recommendation</span>
+            <span id="route-badge" class="route-badge"></span>
+          </div>
+          <p id="result-meta" class="result-meta"></p>
+          <p class="field-label">Open with</p>
+          <div class="route-actions">
+            <button id="open-search" class="btn btn-route btn-search" type="button">
+              <span class="route-icon">🔍</span>
+              <span>Search</span>
+            </button>
+            <button id="open-llm" class="btn btn-route btn-llm" type="button">
+              <span class="route-icon">✨</span>
+              <span>LLM</span>
+            </button>
+          </div>
+        </section>
+
+        <section id="feedback-section" class="card feedback-card hidden">
+          <div class="feedback-header">
+            <span class="field-label">Feedback due</span>
+            <span class="feedback-pill">Help us improve</span>
+          </div>
+          <p id="feedback-query" class="feedback-query"></p>
+          <p class="feedback-prompt">Which was more useful for this query?</p>
+          <div class="feedback-actions">
+            <button class="btn btn-feedback" data-useful="search" type="button">
+              Search
+            </button>
+            <button class="btn btn-feedback" data-useful="llm" type="button">
+              LLM
+            </button>
+            <button class="btn btn-feedback subtle" data-useful="both" type="button">
+              Both
+            </button>
+            <button class="btn btn-feedback subtle" data-useful="neither" type="button">
+              Neither
+            </button>
+          </div>
+        </section>
+
+        <details class="settings-panel">
+          <summary>Settings</summary>
+          <div class="settings-grid">
+            <label for="api-url">API URL</label>
+            <input
+              id="api-url"
+              type="url"
+              placeholder="http://127.0.0.1:5000"
+            />
+
+            <label for="feedback-delay">Feedback after (minutes)</label>
+            <input
+              id="feedback-delay"
+              type="number"
+              min="1"
+              max="60"
+              value="3"
+            />
+
+            <label for="browser-select">Search engine</label>
+            <select id="browser-select">
+              <option value="google">Google</option>
+              <option value="duckduckgo">DuckDuckGo</option>
+              <option value="bing">Bing</option>
+              <option value="custom">Custom…</option>
+            </select>
+            <input
+              id="browser-custom"
+              class="full-width hidden"
+              type="text"
+              placeholder="https://example.com/search?q="
+            />
+
+            <label for="llm-select">LLM destination</label>
+            <select id="llm-select">
+              <option value="openai">ChatGPT</option>
+              <option value="claude">Claude</option>
+              <option value="localhost">Localhost</option>
+              <option value="custom">Custom…</option>
+            </select>
+            <input
+              id="llm-custom"
+              class="full-width hidden"
+              type="text"
+              placeholder="https://your-llm.com?q="
+            />
+          </div>
+        </details>
+      </main>
+    </div>
+
+    <script type="module" src="popup.js"></script>
+  </body>
 </html>

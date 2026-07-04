@@ -1,164 +1,270 @@
-import { classify, loadModel } from "./model.mjs";
+import { classifyQuery } from "./api.js";
+import {
+  DEFAULT_SETTINGS,
+  getLlmUrl,
+  getSearchUrl,
+  loadSettings,
+  saveSettings,
+} from "./settings.js";
 
-const textarea = document.getElementById("query");
+const queryInput = document.getElementById("query");
+const classifyBtn = document.getElementById("classify-btn");
+const statusEl = document.getElementById("status");
+const resultSection = document.getElementById("result-section");
+const routeBadge = document.getElementById("route-badge");
+const resultMeta = document.getElementById("result-meta");
+const openSearchBtn = document.getElementById("open-search");
+const openLlmBtn = document.getElementById("open-llm");
+const feedbackSection = document.getElementById("feedback-section");
+const feedbackQuery = document.getElementById("feedback-query");
+
+const apiUrlInput = document.getElementById("api-url");
+const feedbackDelayInput = document.getElementById("feedback-delay");
 const browserSelect = document.getElementById("browser-select");
 const browserCustomInput = document.getElementById("browser-custom");
 const llmSelect = document.getElementById("llm-select");
 const llmCustomInput = document.getElementById("llm-custom");
 
-// Auto-resize the textarea as the user types
-textarea.addEventListener("input", () => {
-  textarea.style.height = "auto";
-  textarea.style.height = textarea.scrollHeight + "px";
-});
-
-// Default routing configuration
-const DEFAULT_SETTINGS = {
-  searchEngine: "google",
-  llm: "openai",
-  customSearchUrl: "",
-  customLlmUrl: "",
-};
-
 let settings = { ...DEFAULT_SETTINGS };
+let currentClassification = null;
+let activeFeedbackSession = null;
 
-function applySettingsToUI() {
-  browserSelect.value = settings.searchEngine || DEFAULT_SETTINGS.searchEngine;
-  llmSelect.value = settings.llm || DEFAULT_SETTINGS.llm;
-
-  // Show/hide custom URL inputs and populate them
-  browserCustomInput.style.display =
-    browserSelect.value === "custom" ? "block" : "none";
-  llmCustomInput.style.display =
-    llmSelect.value === "custom" ? "block" : "none";
-
-  browserCustomInput.value = settings.customSearchUrl || "";
-  llmCustomInput.value = settings.customLlmUrl || "";
+function createSessionId() {
+  return crypto.randomUUID();
 }
 
-function saveSettings() {
+function setStatus(message, type = "") {
+  statusEl.textContent = message;
+  statusEl.className = `status${type ? ` ${type}` : ""}`;
+}
+
+function autoResizeTextarea() {
+  queryInput.style.height = "auto";
+  queryInput.style.height = `${queryInput.scrollHeight}px`;
+}
+
+function applySettingsToUI() {
+  apiUrlInput.value = settings.apiBaseUrl;
+  feedbackDelayInput.value = settings.feedbackDelayMinutes;
+  browserSelect.value = settings.searchEngine;
+  llmSelect.value = settings.llm;
+  browserCustomInput.value = settings.customSearchUrl || "";
+  llmCustomInput.value = settings.customLlmUrl || "";
+
+  browserCustomInput.classList.toggle(
+    "hidden",
+    browserSelect.value !== "custom"
+  );
+  llmCustomInput.classList.toggle("hidden", llmSelect.value !== "custom");
+}
+
+function readSettingsFromUI() {
   settings = {
+    apiBaseUrl: apiUrlInput.value.trim() || DEFAULT_SETTINGS.apiBaseUrl,
+    feedbackDelayMinutes: Math.max(
+      1,
+      Number(feedbackDelayInput.value) || DEFAULT_SETTINGS.feedbackDelayMinutes
+    ),
     searchEngine: browserSelect.value,
     llm: llmSelect.value,
     customSearchUrl: browserCustomInput.value.trim(),
     customLlmUrl: llmCustomInput.value.trim(),
   };
-
-  if (typeof chrome !== "undefined" && chrome.storage && chrome.storage.sync) {
-    chrome.storage.sync.set({ routingSettings: settings });
-  }
 }
 
-function loadSettings() {
-  if (typeof chrome !== "undefined" && chrome.storage && chrome.storage.sync) {
-    chrome.storage.sync.get("routingSettings", (data) => {
-      if (data && data.routingSettings) {
-        settings = { ...DEFAULT_SETTINGS, ...data.routingSettings };
-      }
-      applySettingsToUI();
-    });
-  } else {
-    applySettingsToUI();
-  }
+async function persistSettings() {
+  readSettingsFromUI();
+  await saveSettings(settings);
 }
 
-browserSelect.addEventListener("change", () => {
-  browserCustomInput.style.display =
-    browserSelect.value === "custom" ? "block" : "none";
-  saveSettings();
-});
+function renderClassification(result) {
+  currentClassification = {
+    ...result,
+    classifiedAt: new Date().toISOString(),
+  };
 
-browserCustomInput.addEventListener("input", () => {
-  saveSettings();
-});
+  resultSection.classList.remove("hidden");
+  routeBadge.textContent = result.route;
+  routeBadge.className = `route-badge ${result.route}`;
 
-llmSelect.addEventListener("change", () => {
-  llmCustomInput.style.display =
-    llmSelect.value === "custom" ? "block" : "none";
-  saveSettings();
-});
+  const confidenceText =
+    typeof result.confidence === "number"
+      ? `Confidence: ${(result.confidence * 100).toFixed(0)}%`
+      : "Matched by heuristic rules";
+  const reasonText = result.reason ? `Reason: ${result.reason}` : "";
+  const sourceText = `Source: ${result.source}`;
+  resultMeta.textContent = [confidenceText, reasonText, sourceText]
+    .filter(Boolean)
+    .join(" · ");
 
-llmCustomInput.addEventListener("input", () => {
-  saveSettings();
-});
-
-// Load settings when popup opens
-loadSettings();
-
-function getSearchUrl(query) {
-  const encoded = encodeURIComponent(query);
-
-  switch (settings.searchEngine) {
-    case "duckduckgo":
-      return `https://duckduckgo.com/?q=${encoded}`;
-    case "bing":
-      return `https://www.bing.com/search?q=${encoded}`;
-    case "custom":
-      return (settings.customSearchUrl || "").replace("{q}", encoded) ||
-        (settings.customSearchUrl || "") + encoded;
-    case "google":
-    default:
-      return `https://www.google.com/search?q=${encoded}`;
-  }
+  openSearchBtn.classList.toggle(
+    "recommended",
+    result.route === "search"
+  );
+  openLlmBtn.classList.toggle("recommended", result.route === "llm");
 }
 
-function getLlmUrl(query) {
-  const encoded = encodeURIComponent(query);
-
-  switch (settings.llm) {
-    case "claude":
-      // Most hosted LLM UIs don't support query via URL; this opens a new chat page
-      return "https://claude.ai/new";
-    case "localhost":
-      return `http://localhost:8000/?q=${encoded}`;
-    case "custom":
-      return (settings.customLlmUrl || "").replace("{q", encoded).replace("{q}", encoded) ||
-        (settings.customLlmUrl || "") + encoded;
-    case "openai":
-    default:
-      return "https://chat.openai.com/";
-  }
-}
-
-document.getElementById("submit").addEventListener("click", async () => {
-  const queryInput = document.getElementById("query");
-  const resultContainer = document.getElementById("result");
-
-  const query = queryInput.value.trim();
-  if (!query) {
-    resultContainer.innerHTML = "Please enter a query.";
+async function openRoute(route) {
+  if (!currentClassification) {
     return;
   }
 
-  try {
-    // Ensure the model is loaded before classifying
-    await loadModel();
+  const query = currentClassification.query;
+  const url =
+    route === "search"
+      ? getSearchUrl(query, settings)
+      : getLlmUrl(query, settings);
 
-    const result = classify(query);
-    console.log("classification result", result);
+  const session = {
+    id: createSessionId(),
+    query,
+    predictedRoute: currentClassification.route,
+    chosenRoute: route,
+    manualOverride: route !== currentClassification.route,
+    classifiedAt: currentClassification.classifiedAt,
+  };
 
-    if (
-      !result ||
-      typeof result.route !== "string" ||
-      typeof result.confidence !== "number"
-    ) {
-      resultContainer.innerHTML = "Error: Invalid classification result.";
+  window.open(url, "_blank", "noopener");
+
+  chrome.runtime.sendMessage(
+    {
+      type: "scheduleFeedback",
+      session,
+      delayMinutes: settings.feedbackDelayMinutes,
+    },
+    (response) => {
+      if (chrome.runtime.lastError || !response?.ok) {
+        setStatus(
+          "Opened, but feedback reminder could not be scheduled.",
+          "error"
+        );
+        return;
+      }
+
+      setStatus(
+        `Opened ${route}. We'll ask for feedback in ${settings.feedbackDelayMinutes} min.`,
+        "success"
+      );
+    }
+  );
+}
+
+async function loadPendingFeedback() {
+  chrome.runtime.sendMessage({ type: "getPendingFeedback" }, (response) => {
+    const items = response?.items || [];
+    const dueItems = items.filter(
+      (item) => Date.now() >= item.feedbackDueAt
+    );
+
+    if (dueItems.length === 0) {
+      feedbackSection.classList.add("hidden");
+      activeFeedbackSession = null;
       return;
     }
 
-    resultContainer.innerHTML =
-      `Routed to: <b>${result.route}</b><br>` +
-      `Confidence: ${result.confidence.toFixed(2)}<br>`;
-    // Energy Saved: ${result.energy_saved_estimate} kWh`;
+    activeFeedbackSession = dueItems[0];
+    feedbackQuery.textContent = activeFeedbackSession.query;
+    feedbackSection.classList.remove("hidden");
+  });
+}
 
-    const targetUrl =
-      result.route === "search" ? getSearchUrl(query) : getLlmUrl(query);
-    if (targetUrl) {
-      window.open(targetUrl);
+async function handleFeedback(usefulRoute) {
+  if (!activeFeedbackSession) {
+    return;
+  }
+
+  chrome.runtime.sendMessage(
+    {
+      type: "submitFeedback",
+      sessionId: activeFeedbackSession.id,
+      usefulRoute,
+    },
+    (response) => {
+      if (chrome.runtime.lastError || !response?.ok) {
+        setStatus("Could not save feedback.", "error");
+        return;
+      }
+
+      setStatus("Thanks for the feedback!", "success");
+      feedbackSection.classList.add("hidden");
+      activeFeedbackSession = null;
+      loadPendingFeedback();
     }
-  } catch (error) {
-    console.error("Error during classification:", error);
-    resultContainer.innerHTML =
-      "An error occurred while routing your query." + error;
+  );
+}
+
+queryInput.addEventListener("input", autoResizeTextarea);
+
+queryInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
+    event.preventDefault();
+    classifyBtn.click();
   }
 });
+
+classifyBtn.addEventListener("click", async () => {
+  readSettingsFromUI();
+  await persistSettings();
+
+  const query = queryInput.value.trim();
+  if (!query) {
+    setStatus("Enter a query to classify.", "error");
+    return;
+  }
+
+  classifyBtn.disabled = true;
+  setStatus("Classifying…");
+
+  try {
+    const result = await classifyQuery(query, settings.apiBaseUrl);
+    renderClassification(result);
+    setStatus("Choose Search or LLM to continue.", "success");
+  } catch (error) {
+    resultSection.classList.add("hidden");
+    currentClassification = null;
+    setStatus(`Could not reach API: ${error.message}`, "error");
+  } finally {
+    classifyBtn.disabled = false;
+  }
+});
+
+openSearchBtn.addEventListener("click", () => openRoute("search"));
+openLlmBtn.addEventListener("click", () => openRoute("llm"));
+
+document.querySelectorAll("[data-useful]").forEach((button) => {
+  button.addEventListener("click", () => {
+    handleFeedback(button.dataset.useful);
+  });
+});
+
+[
+  apiUrlInput,
+  feedbackDelayInput,
+  browserSelect,
+  browserCustomInput,
+  llmSelect,
+  llmCustomInput,
+].forEach((element) => {
+  element.addEventListener("change", persistSettings);
+  element.addEventListener("input", persistSettings);
+});
+
+browserSelect.addEventListener("change", () => {
+  browserCustomInput.classList.toggle(
+    "hidden",
+    browserSelect.value !== "custom"
+  );
+});
+
+llmSelect.addEventListener("change", () => {
+  llmCustomInput.classList.toggle("hidden", llmSelect.value !== "custom");
+});
+
+async function init() {
+  settings = await loadSettings();
+  applySettingsToUI();
+  autoResizeTextarea();
+  loadPendingFeedback();
+}
+
+init();

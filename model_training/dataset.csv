@@ -10,7 +10,7 @@ polymarket winds of winter,search
 grrm winds of winter,search
 jaime i dreamed of you,search
 bangda fish,search
-what do you think is the fate of Oathkeeper and Widow's wail,search
+what do you think is the fate of Oathkeeper and Widow's wail,llm
 magnus carlsen,search
 raymond ltd share price,search
 jim carrey,search
@@ -38,7 +38,7 @@ restaurants near me,search
 movies near me,search
 zoo near me,search
 netflix subscription cost,search
-how does netflix work,llm
+how does netflix work,search
 "Sea Cliff, New York",search
 beams,search
 Padma Lakshmi,search
@@ -82,8 +82,8 @@ indian restaurants in fukuoka,search
 mumbai sightseeing,search
 fukuoka sightseeing,search
 munich sightseeing,search
-things to do in pune,llm
-things to do in barcelona,llm
+things to do in pune,search
+things to do in barcelona,search
 Things to do in Goa this weekend,search
 things to do in mumbai in December 2026,search
 things to do near me right now,search
@@ -93,7 +93,7 @@ best activities for children in goa,llm
 Baga beach,search
 plan an 2-day itinerary for me in Fukuoka,llm
 places to visit around Fukuoka,search
-places for adventure around Fukuoka,llm
+places for adventure around Fukuoka,search
 global news,search
 what was the most important global news in the past week,llm
 most often occuring subject of global news,llm
@@ -118,14 +118,14 @@ cast of friends,search
 cast of it's a wonderful life,search
 it's a wonderful life,search
 "in the asoiaf books, who is stannis baratheon",search
-is stannis a good character,search
+is stannis a good character,llm
 how do you summarise the ethics of robert baratheon's actions in the war,llm
 was napoleon a moral man,llm
 indian civilization,search
-how advanced were ancient indians,llm
+how advanced were ancient indians,search
 Southampton vs Newcastle,search
 Evaluate the strengths and weaknesses of Southampton vs Newcastle,llm
-is tom bombadil more powerful than Gandalf,search
+is tom bombadil more powerful than Gandalf,llm
 museum timings,search
 hotel timings,search
 check out time,search
@@ -164,7 +164,6 @@ SSC CGL apply online,search
 Nearest petrol pump,search
 Hospitals near me,search
 Pharmacies open now,search
-Restaurants near me,search
 Movie theaters near me,search
 PVR showtimes today,search
 BookMyShow login,search
@@ -502,13 +501,13 @@ Create fantasy world rules,llm
 Write alternate history scenario,llm
 Explain Monty Hall problem,llm
 Why is sky blue scientifically?,llm
-What is game theory?,llm
+What is game theory?,search
 Prisoner’s dilemma explained,llm
 Nash equilibrium explained,llm
 Explain paradox examples,llm
 What is Gödel’s incompleteness theorem?,llm
 Explain Turing machine,llm
-What is NP complete?,llm
+What is NP complete?,search
 P vs NP explained,llm
 Should startups focus on profitability early?,llm
 Is remote work sustainable long term?,llm
@@ -593,7 +592,7 @@ Memory improvement techniques,llm
 How to learn faster,llm
 Cornell note taking method,llm
 How to avoid burnout,llm
-Growth mindset explained,llm
+Growth mindset explained,search
 What is free will?,llm
 Meaning of life discussion,llm
 Determinism vs libertarianism,llm
@@ -656,7 +655,7 @@ How to stay productive,llm
 Time management strategies,llm
 How to overcome procrastination,llm
 Compare MBA vs MS,llm
-Explain inflation,llm
+Explain inflation,search
 What causes recession?,llm
 How interest rates affect economy,llm
 Write a short story about time travel,llm
@@ -742,29 +741,29 @@ Python code to remove duplicates from list,llm
 How to handle exceptions in Python,llm
 Python class example,llm
 What is init in Python?,llm
-How to install packages with pip,llm
+How to install packages with pip,search
 Python virtual environment setup,llm
 Async vs threading in Python,llm
 Python code to sort dictionary by value,llm
 How to connect to MySQL in Python,llm
-What is pandas used for?,llm
+What is pandas used for?,search
 Python code for web scraping,llm
 Explain quantum computing in simple terms,llm
-What is blockchain and how does it work?,llm
-Difference between AI and machine learning,llm
-What is deep learning?,llm
+What is blockchain and how does it work?,search
+Difference between AI and machine learning,search
+What is deep learning?,search
 Explain overfitting in machine learning,llm
 What is reinforcement learning?,llm
 Explain REST vs GraphQL,llm
-What is microservices architecture?,llm
+What is microservices architecture?,search
 How does the internet work?,llm
-Explain DNS in simple words,llm
-What is edge computing?,llm
+Explain DNS in simple words,search
+What is edge computing?,search
 Explain zero trust security,llm
-What is DevOps?,llm
-What is CI/CD?,llm
+What is DevOps?,search
+What is CI/CD?,search
 Explain containerization,llm
-What is Kubernetes?,llm
+What is Kubernetes?,search
 Difference between TCP and UDP,llm
 What is event-driven architecture?,llm
 Explain data normalization,llm
@@ -786,3 +785,163 @@ sanskrit words for decision,search
 hindi words for concentration,search
 latin for ambidextrous,search
 "i am not looking to monetize this, i just want people to use it and have it be helpful. but if i was looking to do that, what would i do",llm
+capital of France,search
+population of Tokyo 2026,search
+who won the 2024 IPL final,search
+when is the next solar eclipse in India,search
+iphone 16 pro max price India,search
+samsung galaxy s24 ultra specifications,search
+macbook air m3 review cnet,search
+openAI API pricing page,search
+anthropic claude pricing,search
+python official documentation,search
+react docs useEffect,search
+nodejs download windows,search
+how to apply for PAN card online,search
+how to track passport application status,search
+how to register for GST online,search
+how to download form 16,search
+how to check income tax refund status,search
+how to link aadhaar with PAN,search
+how to change address in aadhaar,search
+irctc tatkal booking time,search
+delhi to mumbai flight fare today,search
+bangalore to goa bus timings,search
+nearest EV charging station,search
+petrol pump open now near me,search
+24 hour pharmacy near me,search
+sbi branch timings saturday,search
+hdfc credit card customer care email,search
+zomato customer care number,search
+swiggy helpline number,search
+amazon india customer support chat,search
+flipkart order tracking,search
+mi service center near me,search
+apple store appointment Mumbai,search
+PVR INOX ticket booking,search
+bookmyshow pushpa 2 tickets,search
+ind vs aus live score,search
+premier league table today,search
+champions league fixtures this week,search
+f1 race schedule 2026,search
+wimbledon 2026 dates,search
+oscar winners 2025 list,search
+marvel movies release order,search
+dune part three release date,search
+taylor swift latest album,search
+lyrics of bohemian rhapsody,search
+meaning of serendipity,search
+synonym of resilient,search
+translate hello to japanese,search
+butter chicken recipe sanjeev kapoor,search
+masala dosa recipe tarla dalal,search
+things to do in tokyo,search
+things to do in paris in spring,search
+things to do in singapore with kids,llm
+best beaches in goa tripadvisor,search
+shimla hotels booking,search
+manali temperature tomorrow,search
+kedarnath opening date 2026,search
+nifty bank index today,search
+gold rate today mumbai 22 carat,search
+usd inr exchange rate live,search
+crude oil price today,search
+reliance industries quarterly results,search
+tcs q3 results 2026,search
+union budget 2026 pdf download,search
+income tax slab 2026-27,search
+epfo uan activation,search
+digilocker driving license download,search
+voter id status check online,search
+ration card apply online karnataka,search
+bbmp khata transfer process,search
+mca21 company master data,search
+trademark registry public search,search
+supreme court causelist today,search
+cbse class 10 date sheet 2026,search
+jee main cutoff 2026,search
+neet ug registration last date,search
+iit bombay cutoff 2025,search
+harvard university acceptance rate,search
+mit computer science syllabus,search
+stackoverflow python read csv,search
+github copilot pricing,search
+cursor IDE download,search
+winds of winter release date reddit,search
+game of thrones books reading order,search
+one piece manga latest chapter,search
+naruto filler list,search
+elden ring patch notes,search
+gta 6 trailer youtube,search
+steam summer sale 2026 dates,search
+why is Paris considered a romantic city,llm
+is samsung galaxy s24 ultra worth buying for photography,llm
+compare tesla model 3 and model y for a family of four,llm
+should I buy or rent in Bangalore at age 28,llm
+help me decide between IIT Bombay and BITS Pilani,llm
+what career path suits an introverted problem solver,llm
+how to learn guitar as a complete beginner,llm
+how to prepare for GRE in 3 months while working,llm
+how to transition from QA to software engineering,llm
+how to answer tell me about yourself in interviews,llm
+how to structure a daily standup for a remote team,llm
+how to give constructive feedback to a teammate,llm
+how to run a retrospective for a failed sprint,llm
+how to estimate story points for a new team,llm
+how to break down a monolith safely,llm
+how to design a URL shortening service,llm
+how to explain CAP theorem in an interview,llm
+how to whiteboard a rate limiter,llm
+write a Python function to merge intervals,llm
+write unit tests for a login API endpoint,llm
+refactor this nested if-else into guard clauses,llm
+review my API design for RESTful best practices,llm
+suggest improvements for this database schema,llm
+generate sample JSON for an e-commerce order,llm
+create a weekly vegetarian meal plan under 2000 calories,llm
+suggest a 5 day workout plan for beginners at home,llm
+plan a budget backpacking trip across Europe for 2 weeks,llm
+recommend hidden gems in Kyoto for a solo traveler,llm
+suggest team building activities for a 10 person startup,llm
+what should I pack for a monsoon trek in Sahyadri,llm
+draft a polite follow up email after no response,llm
+write a thank you note after a job interview,llm
+rewrite this README to be clearer for open source contributors,llm
+turn these bullet notes into meeting minutes,llm
+summarize the pros and cons of microservices for our stage,llm
+explain blockchain to a non technical founder,llm
+explain why quicksort average case is n log n,llm
+explain the difference between concurrency and parallelism,llm
+what are tradeoffs of event sourcing,llm
+compare postgres and mysql for our analytics workload,llm
+compare REST and gRPC for internal microservices,llm
+is it ethical to scrape public job listings at scale,llm
+was Alexander the Great a net positive for history,llm
+debate whether homework helps learning in high school,llm
+analyze strengths and weaknesses of this startup pitch,llm
+brainstorm names for a productivity app for students,llm
+create a study schedule for UPSC prelims in 6 months,llm
+make a 30 day plan to learn data structures,llm
+help me practice system design for a chat app,llm
+simulate a behavioral interview for a PM role,llm
+give me Socratic questions to understand recursion,llm
+walk me through debugging a memory leak step by step,llm
+what questions should I ask before accepting a startup offer,llm
+how would you prioritize features for an MVP calendar app,llm
+design a notification system for 1 million daily active users,llm
+propose an onboarding flow for a fintech savings app,llm
+write a short horror story set in Bangalore traffic,llm
+compose a limerick about debugging production at 2am,llm
+create flashcards content for JavaScript closures,llm
+roleplay as a patient senior engineer reviewing my design doc,llm
+help me articulate why I want to leave my current job,llm
+convert this product idea into user stories with acceptance criteria,llm
+estimate effort for building auth with OAuth and MFA,llm
+suggest ways to reduce cloud costs for a kubernetes workload,llm
+how should I respond to a difficult stakeholder pushing unrealistic deadlines,llm
+explain imposter syndrome and how to manage it,llm
+what habits help deep work for software engineers,llm
+compare stoicism and pragmatism for decision making,llm
+is universal basic income feasible in India,llm
+what would happen if the moon disappeared,llm
+help me think through whether to cofound a startup now,llm
