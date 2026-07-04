@@ -18,8 +18,6 @@ const openLlmBtn = document.getElementById("open-llm");
 const feedbackSection = document.getElementById("feedback-section");
 const feedbackQuery = document.getElementById("feedback-query");
 
-const apiUrlInput = document.getElementById("api-url");
-const feedbackDelayInput = document.getElementById("feedback-delay");
 const browserSelect = document.getElementById("browser-select");
 const browserCustomInput = document.getElementById("browser-custom");
 const llmSelect = document.getElementById("llm-select");
@@ -44,8 +42,6 @@ function autoResizeTextarea() {
 }
 
 function applySettingsToUI() {
-  apiUrlInput.value = settings.apiBaseUrl;
-  feedbackDelayInput.value = settings.feedbackDelayMinutes;
   browserSelect.value = settings.searchEngine;
   llmSelect.value = settings.llm;
   browserCustomInput.value = settings.customSearchUrl || "";
@@ -60,11 +56,7 @@ function applySettingsToUI() {
 
 function readSettingsFromUI() {
   settings = {
-    apiBaseUrl: apiUrlInput.value.trim() || DEFAULT_SETTINGS.apiBaseUrl,
-    feedbackDelayMinutes: Math.max(
-      1,
-      Number(feedbackDelayInput.value) || DEFAULT_SETTINGS.feedbackDelayMinutes
-    ),
+    ...settings,
     searchEngine: browserSelect.value,
     llm: llmSelect.value,
     customSearchUrl: browserCustomInput.value.trim(),
@@ -280,8 +272,6 @@ document.querySelectorAll("[data-useful]").forEach((button) => {
 });
 
 [
-  apiUrlInput,
-  feedbackDelayInput,
   browserSelect,
   browserCustomInput,
   llmSelect,
