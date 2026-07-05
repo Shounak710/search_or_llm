@@ -1,6 +1,5 @@
 backend/logs/
 .env
 
-# Private training data and artifacts (keep local or on secure storage only)
+# Private training data (keep local only)
 model_training/dataset.csv
-model_training/query_router.pkl

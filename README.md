@@ -42,7 +42,7 @@ Query → Heuristics → (if no match) ML model → (if code query) Stack Overfl
 ├── model_training/          # Dataset, notebooks, trained model
 │   ├── dataset.example.csv  # Format reference (committed)
 │   ├── dataset.csv          # Private — not in git; copy from example locally
-│   ├── query_router.pkl     # Private — train locally; not in git
+│   ├── query_router.pkl     # Trained classifier (committed; safe to deploy)
 │   ├── training.ipynb
 │   └── model.ipynb
 └── requirements.txt
@@ -120,7 +120,7 @@ Log files and training data are **not committed to git** and are **not served ov
 | `backend/logs/feedback.jsonl` | User feedback on routing quality | No | N/A |
 | `backend/logs/stats.jsonl` | Anonymous stats per request | No | Always on |
 | `model_training/dataset.csv` | Training labels | No | N/A |
-| `model_training/query_router.pkl` | Trained classifier | No | N/A |
+| `model_training/query_router.pkl` | Trained classifier | Yes | N/A |
 
 **Stats entries** include timestamp, hashed user ID, route destination (`search` / `llm` / `stackoverflow`), latency, country, and whether the query was logged. No query text is stored in stats.
 
@@ -134,7 +134,7 @@ Training data is private. Copy the format from `model_training/dataset.example.c
 
 1. Open `model_training/training.ipynb`.
 2. Train and export `query_router.pkl`.
-3. Restart the backend to load the new model.
+3. Restart the backend to load the new model, then commit `query_router.pkl` if you want it deployed via git.
 
 The classifier uses TF-IDF + logistic regression with a search bias at inference time (uncertain or close calls favor search).
 
