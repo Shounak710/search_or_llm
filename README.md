@@ -34,8 +34,9 @@ Query → Heuristics → (if no match) ML model → (if code query) Stack Overfl
 │   ├── heuristic_service.py
 │   ├── stackoverflow_service.py
 │   ├── routing_urls.py
-│   ├── query_log.py         # Query + feedback logs
-│   ├── stats_log.py         # Anonymous aggregate stats
+│   ├── query_log.py         # Query + feedback storage (Postgres)
+│   ├── stats_log.py         # Anonymous aggregate stats (Postgres)
+│   ├── db.py                # Postgres connection + schema
 │   ├── geo_service.py       # Country detection
 │   └── static/              # Setup page assets
 ├── extension/               # Chrome/Firefox extension (Manifest V3)
@@ -54,6 +55,7 @@ Query → Heuristics → (if no match) ML model → (if code query) Stack Overfl
 
 ```bash
 pip install -r requirements.txt
+export DATABASE_URL=postgresql://user:password@localhost:5432/nemka
 uvicorn backend.app:app --reload --port 5000
 ```
 
@@ -84,6 +86,18 @@ http://127.0.0.1:5000/search?q=%s&se=google&llm=openai
 
 Add `&log=0` to disable query logging while still collecting anonymous stats.
 
+## Deploy on Railway
+
+1. Create a project and connect this repository.
+2. Add a **PostgreSQL** database to the project. Railway injects `DATABASE_URL` into the web service.
+3. Set environment variables on the web service:
+   - `STATS_API_KEY` — secret for reading `/api/stats/summary`
+   - `CORS_ORIGINS` — e.g. `https://nemka.ip`
+4. Generate a public domain (e.g. `nemka.ip`) under **Settings → Networking**.
+5. Redeploy. Tables are created automatically on startup.
+
+Check `GET /health` — it returns `"database": "connected"` when Postgres is reachable.
+
 ## API
 
 | Method | Path | Description |
@@ -112,21 +126,22 @@ When Stack Overflow matches, `source` is `"stackoverflow"` and `redirect_url` po
 
 ## Logging and privacy
 
-Log files and training data are **not committed to git** and are **not served over HTTP**.
+Query logs, feedback, and aggregate stats are stored in **PostgreSQL** (not flat files). Training data is **not committed to git** and is **not served over HTTP**.
 
-| Log file | Contents | In git | Opt-out |
-|----------|----------|--------|---------|
-| `backend/logs/queries.jsonl` | Full query text + classification | No | Yes (`log=0` or checkbox on setup page) |
-| `backend/logs/feedback.jsonl` | User feedback on routing quality | No | N/A |
-| `backend/logs/stats.jsonl` | Anonymous stats per request | No | Always on |
-| `model_training/dataset.csv` | Training labels | No | N/A |
-| `model_training/query_router.pkl` | Trained classifier | Yes | N/A |
+| Table | Contents | Opt-out |
+|-------|----------|---------|
+| `classifications` | Full query text + classification | Yes (`log=0` or checkbox on setup page) |
+| `feedback` | User feedback on routing quality | N/A |
+| `request_stats` | Anonymous stats per request (no query text) | Always on |
+| `model_training/dataset.csv` | Training labels (local file only) | N/A |
 
-**Stats entries** include timestamp, hashed user ID, route destination (`search` / `llm` / `stackoverflow`), latency, country, and whether the query was logged. No query text is stored in stats.
+**Stats rows** include timestamp, hashed user ID, route destination (`search` / `llm` / `stackoverflow`), latency, country, and whether the query was logged. No query text is stored in `request_stats`.
 
-Set `STATS_API_KEY` in your environment (see `.env.example`). The stats endpoint returns **404** when the key is not configured, and **403** without a valid `X-Stats-Key` header. Log files are never served over HTTP.
+Set `STATS_API_KEY` in your environment (see `.env.example`). The stats endpoint returns **404** when the key is not configured, and **403** without a valid `X-Stats-Key` header.
 
 Query history on the setup page is stored in **localStorage** in your browser, not on the server.
+
+**Local development:** set `DATABASE_URL` to a local Postgres instance, or use Railway’s connection string. Copy `.env.example` to `.env` and fill in values (uvicorn does not load `.env` automatically unless you export variables or use a dotenv loader).
 
 ## Model training
 
@@ -153,5 +168,6 @@ Preferences on the setup page are saved to `localStorage` under `nemka_setup_pre
 ## Requirements
 
 - Python 3.10+
+- PostgreSQL (required — set `DATABASE_URL`)
 - scikit-learn (compatible with the pickled model version)
 - A modern Chromium or Firefox browser for the extension

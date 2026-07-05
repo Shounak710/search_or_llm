@@ -1,78 +1,83 @@
-import json
-import os
 import uuid
 from datetime import datetime, timezone
-from pathlib import Path
 
-_DEFAULT_LOG_DIR = Path(__file__).resolve().parent / "logs"
-LOG_DIR = Path(os.environ["LOG_DIR"]) if os.getenv("LOG_DIR") else _DEFAULT_LOG_DIR
-CLASSIFICATION_LOG_PATH = LOG_DIR / "queries.jsonl"
-FEEDBACK_LOG_PATH = LOG_DIR / "feedback.jsonl"
-
-
-def _append_jsonl(path: Path, entry: dict) -> None:
-    LOG_DIR.mkdir(parents=True, exist_ok=True)
-    with path.open("a", encoding="utf-8") as f:
-        f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+from .db import db_connection
 
 
 def log_classification(query: str, result: dict) -> str:
     log_id = str(uuid.uuid4())
-    entry = {
-        "log_id": log_id,
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-        "query": query,
-        "route": result["route"],
-        "source": result["source"],
-    }
+    now = datetime.now(timezone.utc)
 
-    if "confidence" in result:
-        entry["confidence"] = result["confidence"]
-    if "reason" in result:
-        entry["reason"] = result["reason"]
-    if "redirect_url" in result:
-        entry["redirect_url"] = result["redirect_url"]
-    if "stackoverflow_title" in result:
-        entry["stackoverflow_title"] = result["stackoverflow_title"]
-    if "stackoverflow_score" in result:
-        entry["stackoverflow_score"] = result["stackoverflow_score"]
-    if "stackoverflow_accepted" in result:
-        entry["stackoverflow_accepted"] = result["stackoverflow_accepted"]
+    with db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                INSERT INTO classifications (
+                    log_id, timestamp, query, route, source,
+                    confidence, reason, redirect_url,
+                    stackoverflow_title, stackoverflow_score, stackoverflow_accepted
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                """,
+                (
+                    log_id,
+                    now,
+                    query,
+                    result["route"],
+                    result["source"],
+                    result.get("confidence"),
+                    result.get("reason"),
+                    result.get("redirect_url"),
+                    result.get("stackoverflow_title"),
+                    result.get("stackoverflow_score"),
+                    result.get("stackoverflow_accepted"),
+                ),
+            )
 
-    _append_jsonl(CLASSIFICATION_LOG_PATH, entry)
     return log_id
 
 
 def update_log_preference(log_id: str, useful_route: str) -> bool:
-    if not CLASSIFICATION_LOG_PATH.exists():
-        return False
+    now = datetime.now(timezone.utc)
 
-    lines = CLASSIFICATION_LOG_PATH.read_text(encoding="utf-8").splitlines()
-    updated = False
-    new_lines = []
-
-    for line in lines:
-        if not line.strip():
-            continue
-        entry = json.loads(line)
-        if entry.get("log_id") == log_id:
-            entry["useful_route"] = useful_route
-            entry["useful_route_at"] = datetime.now(timezone.utc).isoformat()
-            updated = True
-        new_lines.append(json.dumps(entry, ensure_ascii=False))
-
-    if updated:
-        CLASSIFICATION_LOG_PATH.write_text(
-            "\n".join(new_lines) + ("\n" if new_lines else ""),
-            encoding="utf-8",
-        )
-
-    return updated
+    with db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                UPDATE classifications
+                SET useful_route = %s, useful_route_at = %s
+                WHERE log_id = %s
+                """,
+                (useful_route, now, log_id),
+            )
+            return cur.rowcount > 0
 
 
 def log_feedback(feedback: dict) -> None:
-    entry = {
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-        **feedback,
-    }
-    _append_jsonl(FEEDBACK_LOG_PATH, entry)
+    now = datetime.now(timezone.utc)
+    classified_at = feedback.get("classified_at")
+    if isinstance(classified_at, str) and classified_at:
+        classified_at = datetime.fromisoformat(classified_at.replace("Z", "+00:00"))
+    elif not classified_at:
+        classified_at = None
+
+    with db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                INSERT INTO feedback (
+                    timestamp, log_id, query, predicted_route, chosen_route,
+                    useful_route, manual_override, classified_at, source
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                """,
+                (
+                    now,
+                    feedback.get("log_id"),
+                    feedback["query"],
+                    feedback.get("predicted_route"),
+                    feedback.get("chosen_route"),
+                    feedback["useful_route"],
+                    bool(feedback.get("manual_override", False)),
+                    classified_at,
+                    feedback.get("source"),
+                ),
+            )

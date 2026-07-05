@@ -12,6 +12,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from .admin_auth import require_admin_key
+from .db import check_db_connection, close_db, init_db
 
 from .classification_service import classify
 from .query_log import log_classification, log_feedback, update_log_preference
@@ -40,6 +41,16 @@ app.add_middleware(
 )
 
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+
+@app.on_event("startup")
+def startup() -> None:
+    init_db()
+
+
+@app.on_event("shutdown")
+def shutdown() -> None:
+    close_db()
 
 
 @app.middleware("http")
@@ -263,11 +274,18 @@ def llm_handoff(
 
 @app.get("/health")
 def health():
-    return {"status": "ok"}
+    if check_db_connection():
+        return {"status": "ok", "database": "connected"}
+    return JSONResponse(
+        {"status": "degraded", "database": "unavailable"},
+        status_code=503,
+    )
 
 
 @app.post("/classify", response_model=ClassifyResponse)
-def classify_query(body: ClassifyRequest, request: Request, background_tasks: BackgroundTasks):
+def classify_query(
+    body: ClassifyRequest, request: Request, background_tasks: BackgroundTasks
+):
     started = time.perf_counter()
     query = body.query.strip()
     if not query:

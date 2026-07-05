@@ -4,7 +4,9 @@ import pickle
 from .heuristic_service import apply_heuristics, is_code_review_query
 from .stackoverflow_service import find_acceptable_answer, is_code_query
 
-_MODEL_PATH = Path(__file__).resolve().parent.parent / "model_training" / "query_router.pkl"
+_MODEL_PATH = (
+    Path(__file__).resolve().parent.parent / "model_training" / "query_router.pkl"
+)
 _model = None
 
 
@@ -31,9 +33,7 @@ _SEARCH_BIAS_MARGIN = 0.12
 def _predict(query: str):
     model = _get_model()
     probs = model.predict_proba([query])[0]
-    prob_by_label = {
-        label: float(prob) for label, prob in zip(model.classes_, probs)
-    }
+    prob_by_label = {label: float(prob) for label, prob in zip(model.classes_, probs)}
     search_prob = prob_by_label["search"]
     llm_prob = prob_by_label["llm"]
 
