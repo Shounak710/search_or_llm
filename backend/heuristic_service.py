@@ -34,6 +34,30 @@ _FACTUAL_LOOKUP = re.compile(
     r")\b"
 )
 
+_POPULAR_WEBSITES = re.compile(
+    r"\b("
+    r"reddit|youtube|twitter|instagram|facebook|github|gitlab|linkedin|"
+    r"tiktok|twitch|discord|spotify|netflix|amazon|wikipedia|medium|"
+    r"pinterest|craigslist|ebay|stackoverflow|stack overflow|"
+    r"hacker news|hackernews|imdb|yelp|airbnb|snapchat|whatsapp|telegram|"
+    r"substack|patreon|kickstarter|quora|mastodon|bluesky"
+    r")\b",
+    re.IGNORECASE,
+)
+
+# Building the platform itself (e.g. "how to build reddit"), not using it ("reddit login").
+_WEBSITE_PLATFORM_BUILD = re.compile(
+    r"\b(build|create|implement|design|develop|clone|replicate|architect)\b",
+    re.IGNORECASE,
+)
+_WEBSITE_USAGE = re.compile(
+    r"\b("
+    r"account|login|log in|sign up|signup|post|comment|profile|subreddit|"
+    r"upload|subscribe|follow|message|dm|notification|password|settings"
+    r")\b",
+    re.IGNORECASE,
+)
+
 _LLM_PREFIXES = re.compile(
     r"^(explain|teach|debug|fix|write|create|design|build|implement|recommend|summarize|evaluate)\b"
 )
@@ -41,6 +65,15 @@ _LLM_PREFIXES = re.compile(
 
 def is_code_review_query(query: str) -> bool:
     return bool(_LLM_CODE_REVIEW.search(query))
+
+
+def is_website_platform_creation(query: str) -> bool:
+    q = query.lower()
+    if not _POPULAR_WEBSITES.search(q):
+        return False
+    if not _WEBSITE_PLATFORM_BUILD.search(q):
+        return False
+    return not _WEBSITE_USAGE.search(q)
 
 
 def apply_heuristics(query: str):
@@ -64,6 +97,11 @@ def apply_heuristics(query: str):
 
     if _FACTUAL_LOOKUP.search(q):
         return {"route": "search", "source": "heuristic", "reason": "factual_lookup"}
+
+    if _POPULAR_WEBSITES.search(q):
+        if is_website_platform_creation(q):
+            return {"route": "llm", "source": "heuristic", "reason": "website_creation"}
+        return {"route": "search", "source": "heuristic", "reason": "popular_website"}
 
     # Single-token lookups (e.g. "infosys", "sentosa") — skip LLM-style prefixes.
     if len(words) == 1 and not _LLM_PREFIXES.search(q):
